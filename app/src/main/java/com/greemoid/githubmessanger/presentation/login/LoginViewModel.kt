@@ -1,7 +1,6 @@
 package com.greemoid.githubmessanger.presentation.login
 
 import androidx.lifecycle.viewModelScope
-import com.greemoid.githubmessanger.core.TextMapper
 import com.greemoid.githubmessanger.domain.login.LoginInteractor
 import com.greemoid.githubmessanger.presentation.core.BaseViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -16,25 +15,26 @@ class LoginViewModel(
     private val dispatchersMain: CoroutineDispatcher = Dispatchers.Main,
 ) : BaseViewModel<LoginCommunication, LoginUi>(communication) {
 
-    fun login(login: LoginWrapper) {
+    fun login(engine: LoginEngine) {
+        handleResult { interactor.login(engine) }
+    }
+
+    fun init(engine: LoginEngine) {
+        if (interactor.authorized())
+            handleResult { interactor.signIn(engine) }
+        else
+            communication.map(LoginUi.Initial())
+    }
+
+    private fun handleResult(block: suspend() -> Auth) {
         communication.map(LoginUi.Progress())
         viewModelScope.launch(dispatchersIO) {
-            val result = interactor.login(login)
+            val result = block()
             val resultUi = if (result is Auth.Fail)
-                result.map(LoginUiFailed())
+                LoginUi.Failed(result.e.message ?: "")
             else
                 LoginUi.Success
             withContext(dispatchersMain) { communication.map(resultUi) }
         }
-    }
-
-    fun init() {
-        val initialState = if (interactor.authorized()) LoginUi.Success else LoginUi.Initial()
-        communication.map(initialState)
-    }
-
-    private inner class LoginUiFailed : TextMapper<LoginUi.Failed> {
-        override fun map(data: String): LoginUi.Failed = LoginUi.Failed(data)
-
     }
 }

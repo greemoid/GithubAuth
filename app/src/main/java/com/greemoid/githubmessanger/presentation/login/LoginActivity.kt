@@ -9,8 +9,6 @@ import com.greemoid.githubmessanger.presentation.main.MainActivity
 
 class LoginActivity : BaseActivity() {
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -25,7 +23,7 @@ class LoginActivity : BaseActivity() {
                 it.map(binding.errorTextView, binding.progressBar, binding.loginButton)
             }
         }
-        binding.loginButton.setOnClickListener { viewModel.login(LoginWrapper.Base(this)) }
-        viewModel.init()
+        binding.loginButton.setOnClickListener { viewModel.login(LoginEngine.Login(this)) }
+        viewModel.init(LoginEngine.SignIn(this))
     }
 }

@@ -1,7 +1,8 @@
-package com.greemoid.githubmessanger.sl.login
+package com.greemoid.githubmessanger.sl
 
-import com.greemoid.githubmessanger.data.LoginRepository
+import com.greemoid.githubmessanger.data.login.LoginRepository
 import com.greemoid.githubmessanger.domain.login.LoginInteractor
+import com.greemoid.githubmessanger.presentation.login.Auth
 import com.greemoid.githubmessanger.presentation.login.LoginCommunication
 import com.greemoid.githubmessanger.presentation.login.LoginViewModel
 import com.greemoid.githubmessanger.sl.core.BaseModule
@@ -12,7 +13,8 @@ class LoginModule(private val coreModule: CoreModule) : BaseModule<LoginViewMode
         LoginViewModel(
             LoginCommunication.Base(),
             LoginInteractor.Base(
-                LoginRepository.Base(coreModule.provideSharedPreferences())
+                LoginRepository.Base(coreModule.firebaseDatabaseProvider()),
+                Auth.AuthResultMapper.Base()
             )
         )
 }

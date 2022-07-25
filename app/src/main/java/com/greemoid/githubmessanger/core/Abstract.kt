@@ -3,6 +3,7 @@ package com.greemoid.githubmessanger.core
 abstract class Abstract {
 
     interface Object<T, M : Mapper> {
+
         fun map(mapper: M): T
     }
 
@@ -12,7 +13,7 @@ abstract class Abstract {
 
     interface Mapper {
 
-        interface Data<S, R> {
+        interface Data<S, R> : Mapper {
             fun map(data: S): R
         }
 

@@ -17,7 +17,7 @@ class LoginViewModelTest {
         val communication = TestCommunication()
         val dispatcher = TestCoroutineDispatcher()
         val viewModel = LoginViewModel(communication, TestInteractor(), dispatcher, dispatcher)
-        viewModel.login(TestLoginWrapper(true))
+        viewModel.login(TestLoginEngine(true))
         val actual = communication.loginUi
         val expected = LoginUi.Success
         assertEquals(expected, actual)
@@ -29,7 +29,7 @@ class LoginViewModelTest {
         val communication = TestCommunication()
         val dispatcher = TestCoroutineDispatcher()
         val viewModel = LoginViewModel(communication, TestInteractor(), dispatcher, dispatcher)
-        viewModel.login(TestLoginWrapper(false))
+        viewModel.login(TestLoginEngine(false))
         val actual = communication.loginUi
         val expected = LoginUi.Failed("error")
         assertEquals(expected, actual)
@@ -51,13 +51,13 @@ class LoginViewModelTest {
     private inner class TestInteractor : LoginInteractor {
         override fun authorized(): Boolean = false
 
-        override suspend fun login(loginWrapper: LoginWrapper): Auth {
-            return loginWrapper.login()
+        override suspend fun login(loginEngine: LoginEngine): Auth {
+            return loginEngine.login()
         }
 
     }
 
-    private inner class TestLoginWrapper(private val success: Boolean) : LoginWrapper {
+    private inner class TestLoginEngine(private val success: Boolean) : LoginEngine {
         override suspend fun login(): Auth =
             if (success) Auth.Base(emptyMap()) else Auth.Fail(IllegalStateException("error"))
 
