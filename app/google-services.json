@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "141150830019",
+    "project_id": "githubmessanger",
+    "storage_bucket": "githubmessanger.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:141150830019:android:da0ad7413eccab7f1f9176",
+        "android_client_info": {
+          "package_name": "com.greemoid.githubmessanger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "141150830019-kj55hlul0poc336e8pjeq2btqtrou5m9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.greemoid.githubmessanger",
+            "certificate_hash": "559bf37c129c298b018500878d11d78cc090c7aa"
+          }
+        },
+        {
+          "client_id": "141150830019-v3mm8uc2ecp2hteeipbg7j7l3ogo7o9l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6rz3ua3JK6x-lpwUI7dVbAR5CZSNYsPU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "141150830019-v3mm8uc2ecp2hteeipbg7j7l3ogo7o9l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

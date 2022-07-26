@@ -4,6 +4,7 @@
     package="com.greemoid.githubmessanger">
 
     <application
+        android:name=".sl.core.GMApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -14,7 +15,10 @@
         android:theme="@style/Theme.GithubMessanger"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.main.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
